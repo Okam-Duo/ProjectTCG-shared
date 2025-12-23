@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Network
 {
-    public interface IPacketByteConverter
+    public interface IPacket
     {
         public void Read(ArraySegment<byte> segment);
         public ArraySegment<byte> Write();
