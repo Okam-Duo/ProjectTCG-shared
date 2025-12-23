@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace Shared
+namespace Shared.Network
 {
     public abstract class PacketSession : Session
     {
