@@ -20,9 +20,10 @@ namespace Shared.Packets
         /// </summary>
         public readonly Item[] rewards;
 
-        public S_BuyShopItemRes(bool isSuccess)
+        public S_BuyShopItemRes(bool isSuccess, Item[] rewards)
         {
             this.isSuccess = isSuccess;
+            this.rewards = rewards;
         }
 
         public void Read(ArraySegment<byte> segment)
