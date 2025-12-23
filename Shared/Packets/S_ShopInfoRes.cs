@@ -14,9 +14,9 @@ namespace Shared.Packets
         /// <summary>
         /// 상점에 제시된 제품들
         /// </summary>
-        public readonly Item items;
+        public readonly Item[] items;
 
-        public S_ShopInfoRes(Item items)
+        public S_ShopInfoRes(Item[] items)
         {
             this.items = items;
         }
