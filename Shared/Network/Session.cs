@@ -121,7 +121,7 @@ namespace Shared.Network
             }
             else
             {
-                Console.WriteLine("세션이 끊겨 전송 실패");
+                Logger.Log("세션이 끊겨 전송 실패");
                 OnSendCompleted(null, _sendArgs);
             }
         }
@@ -146,7 +146,7 @@ namespace Shared.Network
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"OnSendCompleted Failed {e}");
+                        Logger.Log($"OnSendCompleted Failed {e}");
                     }
                 }
                 else
@@ -206,7 +206,7 @@ namespace Shared.Network
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"OnRecvCompleted Failed {e}");
+                    Logger.Log($"OnRecvCompleted Failed {e}");
                 }
             }
             else
