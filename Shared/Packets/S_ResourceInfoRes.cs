@@ -13,8 +13,6 @@ namespace Shared.Packets
     {
         public ResourceInfo[] infos;
 
-        public static ushort PacketId => 2;
-
         public void Read(ArraySegment<byte> segment)
         {
             throw new NotImplementedException();

@@ -16,8 +16,6 @@ namespace Shared.Packets
         /// </summary>
         public readonly ResourceType[] resourceType;
 
-        public static ushort PacketId => 1;
-
         public C_ResourceInfoReq(ResourceType[] resourceType)
         {
             this.resourceType = resourceType;

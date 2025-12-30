@@ -11,8 +11,6 @@ namespace Shared.Packets
     /// </summary>
     public struct C_ShopInfoReq : Network.IPacket
     {
-        public static ushort PacketId => 3;
-
         public void Read(ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
