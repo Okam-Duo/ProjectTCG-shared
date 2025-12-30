@@ -20,6 +20,8 @@ namespace Shared.Packets
         /// </summary>
         public readonly Item[] rewards;
 
+        public static ushort PacketId => 6;
+
         public S_BuyShopItemRes(bool isSuccess, Item[] rewards)
         {
             this.isSuccess = isSuccess;

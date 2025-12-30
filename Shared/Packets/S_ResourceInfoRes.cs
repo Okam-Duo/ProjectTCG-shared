@@ -11,10 +11,9 @@ namespace Shared.Packets
     /// </summary>
     public struct S_ResourceInfoRes : Network.IPacket
     {
-        /// <summary>
-        /// id, 보유량
-        /// </summary>
-        KeyValuePair<ushort, ushort> resources;
+        public ResourceInfo[] infos;
+
+        public static ushort PacketId => 2;
 
         public void Read(ArraySegment<byte> segment)
         {
@@ -24,6 +23,13 @@ namespace Shared.Packets
         public ArraySegment<byte> Write()
         {
             throw new NotImplementedException();
+        }
+
+        public struct ResourceInfo
+        {
+            public ushort id;
+            public ResourceType resourceType;
+            public int count;
         }
     }
 }

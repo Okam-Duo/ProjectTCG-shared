@@ -14,9 +14,11 @@ namespace Shared.Packets
         /// <summary>
         /// 서버에 물어볼 자원 타입
         /// </summary>
-        public readonly ResourceType resourceType;
+        public readonly ResourceType[] resourceType;
 
-        public C_ResourceInfoReq(ResourceType resourceType)
+        public static ushort PacketId => 1;
+
+        public C_ResourceInfoReq(ResourceType[] resourceType)
         {
             this.resourceType = resourceType;
         }

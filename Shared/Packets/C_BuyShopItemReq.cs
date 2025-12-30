@@ -16,6 +16,8 @@ namespace Shared.Packets
         /// </summary>
         public readonly ushort itemIndex;
 
+        public static ushort PacketId => 5;
+
         public C_BuyShopItemReq(ushort itemIndex)
         {
             this.itemIndex = itemIndex;

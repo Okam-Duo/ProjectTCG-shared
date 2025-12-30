@@ -8,6 +8,8 @@ namespace Shared.Network
 {
     public interface IPacket
     {
+        public static abstract ushort PacketId { get; }
+
         public void Read(ArraySegment<byte> segment);
         public ArraySegment<byte> Write();
     }

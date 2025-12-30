@@ -16,6 +16,8 @@ namespace Shared.Packets
         /// </summary>
         public readonly Item[] items;
 
+        public static ushort PacketId => 4;
+
         public S_ShopInfoRes(Item[] items)
         {
             this.items = items;
