@@ -16,7 +16,7 @@ namespace Shared.Packets
         /// </summary>
         public readonly ResourceType[] resourceType;
 
-        public C_ResourceInfoReq(ResourceType[] resourceType)
+        public C_ResourceInfoReq(in ResourceType[] resourceType)
         {
             this.resourceType = resourceType;
         }

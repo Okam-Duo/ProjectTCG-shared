@@ -21,7 +21,7 @@ namespace Shared.Packets
             this.itemIndex = itemIndex;
         }
 
-        public void Read(ArraySegment<byte> segment)
+        public void Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }

@@ -8,7 +8,7 @@ namespace Shared.Network
 {
     public interface IPacket
     {
-        public void Read(ArraySegment<byte> segment);
+        public void Read(in ArraySegment<byte> segment);
         public ArraySegment<byte> Write();
     }
 }

@@ -11,7 +11,7 @@ namespace Shared.Packets
     /// </summary>
     public struct C_ShopInfoReq : Network.IPacket
     {
-        public void Read(ArraySegment<byte> segment)
+        public void Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }
