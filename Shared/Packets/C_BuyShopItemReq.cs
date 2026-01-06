@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +15,18 @@ namespace Shared.Packets
         /// <summary>
         /// ShopInfoRes로 받은 아이템중 몇번째를 구매했는지
         /// </summary>
-        public readonly ushort itemIndex;
-
-        public C_BuyShopItemReq(ushort itemIndex)
-        {
-            this.itemIndex = itemIndex;
-        }
+        public ushort itemIndex;
 
         public void Read(in ArraySegment<byte> segment)
         {
-            throw new NotImplementedException();
+            itemIndex = BitConverter.ToUInt16(segment);
         }
 
-        public ArraySegment<byte> Write()
+        int IPacket.Write(in ArraySegment<byte> s)
         {
-            throw new NotImplementedException();
+            BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset, s.Count), itemIndex);
+
+            return sizeof(ushort);
         }
     }
 }

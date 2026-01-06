@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,17 +17,12 @@ namespace Shared.Packets
         /// </summary>
         public readonly ResourceType[] resourceType;
 
-        public C_ResourceInfoReq(in ResourceType[] resourceType)
-        {
-            this.resourceType = resourceType;
-        }
-
-        public void Read(ArraySegment<byte> segment)
+        void IPacket.Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }
 
-        public ArraySegment<byte> Write()
+        int IPacket.Write(in ArraySegment<byte> s)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,21 +21,17 @@ namespace Shared.Packets
         /// </summary>
         public readonly Item[] rewards;
 
-        public S_BuyShopItemRes(bool isSuccess, Item[] rewards)
-        {
-            this.isSuccess = isSuccess;
-            this.rewards = rewards;
-        }
 
-        public void Read(in ArraySegment<byte> segment)
+        void IPacket.Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }
 
-        public ArraySegment<byte> Write()
+        int IPacket.Write(in ArraySegment<byte> s)
         {
             throw new NotImplementedException();
         }
+
 
         public struct Item
         {
