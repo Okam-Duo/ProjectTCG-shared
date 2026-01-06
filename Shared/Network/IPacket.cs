@@ -8,7 +8,7 @@ namespace Shared.Network
 {
     public interface IPacket
     {
-        public static Span<byte> WriteHelper(IPacket packet)
+        public static ArraySegment<byte> WriteHelper(IPacket packet)
         {
             ArraySegment<byte> buffer = SendBufferHelper.Open(4096);
 
