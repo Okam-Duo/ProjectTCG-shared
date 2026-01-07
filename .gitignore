@@ -3,3 +3,4 @@
 /obj/*
 *.sln
 *.csproj
+Program.cs
