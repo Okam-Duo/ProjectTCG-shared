@@ -17,6 +17,8 @@ namespace Shared.Packets
         /// </summary>
         public ushort itemIndex;
 
+        public PacketID PacketID => PacketID.C_BuyShopItemReq;
+
         public void Read(in ArraySegment<byte> segment)
         {
             itemIndex = BitConverter.ToUInt16(segment);

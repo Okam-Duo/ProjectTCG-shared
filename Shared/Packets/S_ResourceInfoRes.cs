@@ -14,6 +14,7 @@ namespace Shared.Packets
     {
         public ResourceInfo[] infos;
 
+        public PacketID PacketID => PacketID.S_ResourceInfoRes;
 
         void IPacket.Read(in ArraySegment<byte> segment)
         {

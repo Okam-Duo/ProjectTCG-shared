@@ -17,6 +17,8 @@ namespace Shared.Packets
         /// </summary>
         public readonly ResourceType[] resourceType;
 
+        public PacketID PacketID => PacketID.C_ResourceInfoReq;
+
         void IPacket.Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();

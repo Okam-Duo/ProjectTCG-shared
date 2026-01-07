@@ -21,6 +21,7 @@ namespace Shared.Packets
         /// </summary>
         public readonly Item[] rewards;
 
+        public PacketID PacketID => PacketID.S_BuyShopItemRes;
 
         void IPacket.Read(in ArraySegment<byte> segment)
         {
