@@ -23,16 +23,15 @@ namespace Shared.Packets
 
         public PacketID PacketID => PacketID.S_BuyShopItemRes;
 
-        void IPacket.Read(in ArraySegment<byte> segment)
+        public void Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }
 
-        int IPacket.Write(in ArraySegment<byte> s)
+        public ArraySegment<byte> Write()
         {
             throw new NotImplementedException();
         }
-
 
         public struct Item
         {

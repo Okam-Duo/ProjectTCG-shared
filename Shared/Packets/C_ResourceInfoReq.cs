@@ -19,12 +19,12 @@ namespace Shared.Packets
 
         public PacketID PacketID => PacketID.C_ResourceInfoReq;
 
-        void IPacket.Read(in ArraySegment<byte> segment)
+        public void Read(in ArraySegment<byte> segment)
         {
             throw new NotImplementedException();
         }
 
-        int IPacket.Write(in ArraySegment<byte> s)
+        public ArraySegment<byte> Write()
         {
             throw new NotImplementedException();
         }
