@@ -1,5 +1,6 @@
 ﻿using Shared.Network;
 using Shared.Packets;
+using System;
 
 namespace Shared.Contents
 {
