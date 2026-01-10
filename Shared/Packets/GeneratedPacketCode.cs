@@ -2,6 +2,7 @@ using Shared.Network;
 using Shared.Contents;
 using System.Text;
 using System;
+using System.Collections.Generic;
 
 //해당 파일은 PacketGenerator.Program에 의해 자동 생성되었습니다.
 
@@ -10,57 +11,57 @@ namespace Shared.Packets
     public enum PacketID
     {
         Null = 0,
-        C_ResourceInfoReq = 1,
-        S_ResourceInfoRes = 2,
-        C_ShopInfoReq = 3,
-        S_ShopInfoRes = 4,
-        C_BuyShopItemReq = 5,
-        S_BuyShopItemRes = 6,
+		C_ResourceInfoReq = 1,
+		S_ResourceInfoRes = 2,
+		C_ShopInfoReq = 3,
+		S_ShopInfoRes = 4,
+		C_BuyShopItemReq = 5,
+		S_BuyShopItemRes = 6,
     }
 
-    #region PacketFactory : ID기반 패킷 생성기
-    public static class PacketFactory
-    {
-        private static Dictionary<PacketID, Func<ArraySegment<byte>, IPacket>> _packetFactory =
-        new() {
+#region PacketFactory : ID기반 패킷 생성기
+public static class PacketFactory
+{
+    private static Dictionary<PacketID, Func<ArraySegment<byte>, IPacket>> _packetFactory =
+    new() {
         {PacketID.Null,ErrorHandle},
-        {PacketID.C_ResourceInfoReq,Read<C_ResourceInfoReq>},
-        {PacketID.S_ResourceInfoRes,Read<S_ResourceInfoRes>},
-        {PacketID.C_ShopInfoReq,Read<C_ShopInfoReq>},
-        {PacketID.S_ShopInfoRes,Read<S_ShopInfoRes>},
-        {PacketID.C_BuyShopItemReq,Read<C_BuyShopItemReq>},
-        {PacketID.S_BuyShopItemRes,Read<S_BuyShopItemRes>},
-        };
+		{PacketID.C_ResourceInfoReq,Read<C_ResourceInfoReq>},
+		{PacketID.S_ResourceInfoRes,Read<S_ResourceInfoRes>},
+		{PacketID.C_ShopInfoReq,Read<C_ShopInfoReq>},
+		{PacketID.S_ShopInfoRes,Read<S_ShopInfoRes>},
+		{PacketID.C_BuyShopItemReq,Read<C_BuyShopItemReq>},
+		{PacketID.S_BuyShopItemRes,Read<S_BuyShopItemRes>},
+    };
 
-        //외부 공개용 인터페이스
-        public static IPacket GeneratePacket(PacketID packetID, ArraySegment<byte> buffer)
+    //외부 공개용 인터페이스
+    public static IPacket GeneratePacket(PacketID packetID, ArraySegment<byte> buffer)
+    {
+        if (_packetFactory.Count < (int)packetID)
         {
-            if (_packetFactory.Count < (int)packetID)
-            {
-                Logger.Log($"할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : {(int)packetID}");
-            }
-
-            return _packetFactory[packetID](buffer);
+            Logger.Log($"할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : {(int)packetID}");
         }
 
-        //패킷 생성용 private 함수
-        private static IPacket Read<T>(ArraySegment<byte> buffer) where T : IPacket, new()
-        {
-            T packet = new T();
-            packet.Read(buffer);
-            return packet;
-        }
-
-        private static IPacket ErrorHandle(ArraySegment<byte> buffer)
-        {
-            Logger.Log("할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : 0");
-            return null;
-        }
+        return _packetFactory[packetID](buffer);
     }
-    #endregion
+
+    //패킷 생성용 private 함수
+    private static IPacket Read<T>(ArraySegment<byte> buffer) where T : IPacket, new()
+    {
+        T packet = new T();
+        packet.Read(buffer);
+        return packet;
+    }
+
+    private static IPacket ErrorHandle(ArraySegment<byte> buffer)
+    {
+        Logger.Log("할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : 0");
+        return null;
+    }
+}
+#endregion
 
 
-    #region 1. C_ResourceInfoReq
+#region 1. C_ResourceInfoReq
     public struct C_ResourceInfoReq : IPacket
     {
         public ResourceType[] resourceType;
@@ -76,15 +77,15 @@ namespace Shared.Packets
 
 
             //Array
-            len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-            for (int i = 0; i < len; i++)
-            {
-                //ResourceType resourceType[i]
-                resourceType[i] = (ResourceType)BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-                c += sizeof(ushort);
-            }
-
+			len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			for (int i = 0; i < len; i++)
+			{
+			    //ResourceType resourceType[i]
+			resourceType[i] = (ResourceType)BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			}
+			
         }
 
         public ArraySegment<byte> Write()
@@ -104,16 +105,16 @@ namespace Shared.Packets
 
 
             //enum[] resourceType
-            len = (ushort)resourceType.Length;//*
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
-            c += sizeof(ushort);//*
-            for (int i = 0; i < len; i++)
-            {
-                //ResourceType resourceType[i]
-                BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), (ushort)resourceType[i]);
-                c += sizeof(ushort);
-            }
-
+			len = (ushort)resourceType.Length;//*
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
+			c += sizeof(ushort);//*
+			for (int i = 0; i < len; i++)
+			{
+			    //ResourceType resourceType[i]
+			BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), (ushort)resourceType[i]);
+			c += sizeof(ushort);
+			}
+			
 
 
             //패킷 크기 삽입
@@ -131,9 +132,9 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
-    #region 2. S_ResourceInfoRes
+#region 2. S_ResourceInfoRes
     public struct S_ResourceInfoRes : IPacket
     {
         public ResourceInfo[] infos;
@@ -149,14 +150,14 @@ namespace Shared.Packets
 
 
             //Array
-            len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-            for (int i = 0; i < len; i++)
-            {
-                //struct infos[i]
-                infos[i].Read(segment, ref c);
-            }
-
+			len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			for (int i = 0; i < len; i++)
+			{
+			    //struct infos[i]
+			infos[i].Read(segment, ref c);
+			}
+			
         }
 
         public ArraySegment<byte> Write()
@@ -176,14 +177,14 @@ namespace Shared.Packets
 
 
             //ResourceInfo[] infos
-            len = (ushort)infos.Length;//*
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
-            c += sizeof(ushort);//*
-            for (int i = 0; i < len; i++)
-            {
-                infos[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
-            }
-
+			len = (ushort)infos.Length;//*
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
+			c += sizeof(ushort);//*
+			for (int i = 0; i < len; i++)
+			{
+			    infos[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
+			}
+			
 
 
             //패킷 크기 삽입
@@ -201,12 +202,12 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
-    #region 3. C_ShopInfoReq
+#region 3. C_ShopInfoReq
     public struct C_ShopInfoReq : IPacket
     {
-
+        
 
         public PacketID PacketID => PacketID.C_ShopInfoReq;
 
@@ -218,7 +219,7 @@ namespace Shared.Packets
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
 
-
+            
         }
 
         public ArraySegment<byte> Write()
@@ -237,7 +238,7 @@ namespace Shared.Packets
             c += sizeof(ushort);
 
 
-
+            
 
 
             //패킷 크기 삽입
@@ -255,9 +256,9 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
-    #region 4. S_ShopInfoRes
+#region 4. S_ShopInfoRes
     public struct S_ShopInfoRes : IPacket
     {
         public Item[] items;
@@ -273,14 +274,14 @@ namespace Shared.Packets
 
 
             //Array
-            len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-            for (int i = 0; i < len; i++)
-            {
-                //struct items[i]
-                items[i].Read(segment, ref c);
-            }
-
+			len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			for (int i = 0; i < len; i++)
+			{
+			    //struct items[i]
+			items[i].Read(segment, ref c);
+			}
+			
         }
 
         public ArraySegment<byte> Write()
@@ -300,14 +301,14 @@ namespace Shared.Packets
 
 
             //Item[] items
-            len = (ushort)items.Length;//*
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
-            c += sizeof(ushort);//*
-            for (int i = 0; i < len; i++)
-            {
-                items[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
-            }
-
+			len = (ushort)items.Length;//*
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
+			c += sizeof(ushort);//*
+			for (int i = 0; i < len; i++)
+			{
+			    items[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
+			}
+			
 
 
             //패킷 크기 삽입
@@ -325,9 +326,9 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
-    #region 5. C_BuyShopItemReq
+#region 5. C_BuyShopItemReq
     public struct C_BuyShopItemReq : IPacket
     {
         public ushort itemIndex;
@@ -343,9 +344,9 @@ namespace Shared.Packets
 
 
             //ushort itemIndex
-            itemIndex = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-
+			itemIndex = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			
         }
 
         public ArraySegment<byte> Write()
@@ -365,9 +366,9 @@ namespace Shared.Packets
 
 
             //ushort itemIndex
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), itemIndex);
-            c += sizeof(ushort);
-
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), itemIndex);
+			c += sizeof(ushort);
+			
 
 
             //패킷 크기 삽입
@@ -385,13 +386,13 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
-    #region 6. S_BuyShopItemRes
+#region 6. S_BuyShopItemRes
     public struct S_BuyShopItemRes : IPacket
     {
         public bool isSuccess;
-        public Item[] rewards;
+		public Item[] rewards;
 
         public PacketID PacketID => PacketID.S_BuyShopItemRes;
 
@@ -404,18 +405,18 @@ namespace Shared.Packets
 
 
             //bool isSuccess
-            isSuccess = BitConverter.ToBoolean(s.Slice(c, segment.Count - c));
-            c += sizeof(bool);
-
-            //Array
-            len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-            for (int i = 0; i < len; i++)
-            {
-                //struct rewards[i]
-                rewards[i].Read(segment, ref c);
-            }
-
+			isSuccess = BitConverter.ToBoolean(s.Slice(c, segment.Count - c));
+			c += sizeof(bool);
+			
+			//Array
+			len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
+			c += sizeof(ushort);
+			for (int i = 0; i < len; i++)
+			{
+			    //struct rewards[i]
+			rewards[i].Read(segment, ref c);
+			}
+			
         }
 
         public ArraySegment<byte> Write()
@@ -435,18 +436,18 @@ namespace Shared.Packets
 
 
             //bool isSuccess
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), isSuccess);
-            c += sizeof(bool);
-
-            //Item[] rewards
-            len = (ushort)rewards.Length;//*
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
-            c += sizeof(ushort);//*
-            for (int i = 0; i < len; i++)
-            {
-                rewards[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
-            }
-
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), isSuccess);
+			c += sizeof(bool);
+			
+			//Item[] rewards
+			len = (ushort)rewards.Length;//*
+			success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
+			c += sizeof(ushort);//*
+			for (int i = 0; i < len; i++)
+			{
+			    rewards[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
+			}
+			
 
 
             //패킷 크기 삽입
@@ -464,7 +465,7 @@ namespace Shared.Packets
             }
         }
     }
-    #endregion
+#endregion
 
 
 }

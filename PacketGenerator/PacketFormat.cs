@@ -10,6 +10,7 @@
 using Shared.Contents;
 using System.Text;
 using System;
+using System.Collections.Generic;
 
 //해당 파일은 PacketGenerator.Program에 의해 자동 생성되었습니다.
 
