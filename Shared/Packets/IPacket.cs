@@ -1,4 +1,6 @@
-﻿namespace Shared.Packets
+﻿using System;
+
+namespace Shared.Packets
 {
     public interface IPacket
     {
