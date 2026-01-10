@@ -1,8 +1,8 @@
-﻿namespace Shared.Network
+﻿namespace Shared.Packets
 {
     public interface IPacket
     {
-        public PacketID PacketID { get; }
+        //public PacketID PacketID { get; }
 
         public void Read(in ArraySegment<byte> segment);
         /// <param name="s">SendBuffer에 할당되어있는 공간</param>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PDL>
+
+	<packet name="C_ResourceInfoReq">
+		<list name="resourceType">
+			<enum name="ResourceType"/>
+		</list>
+	</packet>
+
+	<packet name="S_ResourceInfoRes">
+		<list name="infos">
+			<ResourceInfo/>
+		</list>
+	</packet>
+
+	<packet name="C_ShopInfoReq">
+	</packet>
+
+	<packet name="S_ShopInfoRes">
+		<list name="items">
+			<Item/>
+		</list>
+	</packet>
+
+	<packet name="C_BuyShopItemReq">
+		<ushort name="itemIndex"/>
+	</packet>
+
+	<packet name="S_BuyShopItemRes">
+		<bool name="isSuccess"/>
+		<list name="rewards">
+			<Item/>
+		</list>
+	</packet>
+</PDL>
