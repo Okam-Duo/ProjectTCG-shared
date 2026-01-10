@@ -3,7 +3,8 @@
     internal class PacketFormat
     {
         //{0} 패킷ID들
-        //{1} 패킷 선언들
+        //{1} PacketFactory
+        //{2} 패킷 선언들
         public static string fileFormat =
 @"using Shared.Network;
 using Shared.Contents;
@@ -20,6 +21,8 @@ namespace Shared.Packets
     }}
 
 {1}
+
+{2}
 
 }}";
 
@@ -177,5 +180,42 @@ c += sizeof(byte);";
 @"//{1} {0}
 BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), (ushort){0});
 c += sizeof(ushort);";
+
+        //{0} ID에서 Read<>로 대응하는 {}항
+        public static string packetFactoryFormat =
+ @"#region PacketFactory : ID기반 패킷 생성기
+public static class PacketFactory
+{{
+    private static Dictionary<PacketID, Func<ArraySegment<byte>, IPacket>> _packetFactory =
+    new() {{
+        {{PacketID.Null,ErrorHandle}},{0}
+    }};
+
+    //외부 공개용 인터페이스
+    public static IPacket GeneratePacket(PacketID packetID, ArraySegment<byte> buffer)
+    {{
+        if (_packetFactory.Count < (int)packetID)
+        {{
+            Logger.Log($""할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : {{(int)packetID}}"");
+        }}
+
+        return _packetFactory[packetID](buffer);
+    }}
+
+    //패킷 생성용 private 함수
+    private static IPacket Read<T>(ArraySegment<byte> buffer) where T : IPacket, new()
+    {{
+        T packet = new T();
+        packet.Read(buffer);
+        return packet;
+    }}
+
+    private static IPacket ErrorHandle(ArraySegment<byte> buffer)
+    {{
+        Logger.Log(""할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : 0"");
+        return null;
+    }}
+}}
+#endregion";
     }
 }

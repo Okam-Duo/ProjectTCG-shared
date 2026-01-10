@@ -18,6 +18,47 @@ namespace Shared.Packets
         S_BuyShopItemRes = 6,
     }
 
+    #region PacketFactory : ID기반 패킷 생성기
+    public static class PacketFactory
+    {
+        private static Dictionary<PacketID, Func<ArraySegment<byte>, IPacket>> _packetFactory =
+        new() {
+        {PacketID.Null,ErrorHandle},
+        {PacketID.C_ResourceInfoReq,Read<C_ResourceInfoReq>},
+        {PacketID.S_ResourceInfoRes,Read<S_ResourceInfoRes>},
+        {PacketID.C_ShopInfoReq,Read<C_ShopInfoReq>},
+        {PacketID.S_ShopInfoRes,Read<S_ShopInfoRes>},
+        {PacketID.C_BuyShopItemReq,Read<C_BuyShopItemReq>},
+        {PacketID.S_BuyShopItemRes,Read<S_BuyShopItemRes>},
+        };
+
+        //외부 공개용 인터페이스
+        public static IPacket GeneratePacket(PacketID packetID, ArraySegment<byte> buffer)
+        {
+            if (_packetFactory.Count < (int)packetID)
+            {
+                Logger.Log($"할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : {(int)packetID}");
+            }
+
+            return _packetFactory[packetID](buffer);
+        }
+
+        //패킷 생성용 private 함수
+        private static IPacket Read<T>(ArraySegment<byte> buffer) where T : IPacket, new()
+        {
+            T packet = new T();
+            packet.Read(buffer);
+            return packet;
+        }
+
+        private static IPacket ErrorHandle(ArraySegment<byte> buffer)
+        {
+            Logger.Log("할당되지 않은 PacketID를 가진 패킷이 수신되었습니다. \nPacketID : 0");
+            return null;
+        }
+    }
+    #endregion
+
 
     #region 1. C_ResourceInfoReq
     public struct C_ResourceInfoReq : IPacket
