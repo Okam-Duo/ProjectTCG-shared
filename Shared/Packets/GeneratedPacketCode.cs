@@ -471,6 +471,32 @@ public static class PacketFactory
 #region 패킷 핸들러 인터페이스
     public interface IPacketHandler
     {
+        public void RunPakcetHandleHandle(Session session,PacketID packetID, IPacket packet)
+        {
+            switch (packetID)
+            {
+                case PacketID.C_ResourceInfoReq:
+                    C_ResourceInfoReq_Handle(session,(C_ResourceInfoReq)packet);
+                    break;
+                case PacketID.S_ResourceInfoRes:
+                    S_ResourceInfoRes_Handle(session,(S_ResourceInfoRes)packet);
+                    break;
+                case PacketID.C_ShopInfoReq:
+                    C_ShopInfoReq_Handle(session,(C_ShopInfoReq)packet);
+                    break;
+                case PacketID.S_ShopInfoRes:
+                    S_ShopInfoRes_Handle(session,(S_ShopInfoRes)packet);
+                    break;
+                case PacketID.C_BuyShopItemReq:
+                    C_BuyShopItemReq_Handle(session,(C_BuyShopItemReq)packet);
+                    break;
+                case PacketID.S_BuyShopItemRes:
+                    S_BuyShopItemRes_Handle(session,(S_BuyShopItemRes)packet);
+                    break;
+
+            }
+        }
+
         void C_ResourceInfoReq_Handle(Session session, C_ResourceInfoReq packet);
         void S_ResourceInfoRes_Handle(Session session, S_ResourceInfoRes packet);
         void C_ShopInfoReq_Handle(Session session, C_ShopInfoReq packet);

@@ -221,14 +221,30 @@ public static class PacketFactory
 }}
 #endregion";
 
+        //{0} 핸들러 스위치 포멧
         //{0} 핸들러 함수 포멧
         public static string packetHandlerFormat =
 @"#region 패킷 핸들러 인터페이스
     public interface IPacketHandler
     {{
+        public void RunPakcetHandleHandle(Session session,PacketID packetID, IPacket packet)
+        {{
+            switch (packetID)
+            {{
 {0}
+            }}
+        }}
+
+{1}
     }}
     #endregion";
+
+        //{0} 패킷 이름
+        public static string packetHandleSwitchFormat =
+@"                case PacketID.{0}:
+                    {0}_Handle(session,({0})packet);
+                    break;
+";
 
         //{0} 패킷 이름
         public static string packetHandleFunctionFormat = "        void {0}_Handle(Session session, {0} packet);\n";
