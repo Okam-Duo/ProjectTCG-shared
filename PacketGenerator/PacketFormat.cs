@@ -227,7 +227,7 @@ public static class PacketFactory
 @"#region 패킷 핸들러 인터페이스
     public interface IPacketHandler
     {{
-        public void RunPakcetHandleHandle(Session session,PacketID packetID, IPacket packet)
+        public void RunPakcetHandle(Session session,PacketID packetID, IPacket packet)
         {{
             switch (packetID)
             {{
