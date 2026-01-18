@@ -468,4 +468,17 @@ public static class PacketFactory
 #endregion
 
 
+#region 패킷 핸들러 인터페이스
+    public interface IPacketHandler
+    {
+        void C_ResourceInfoReq_Handle(Session session, C_ResourceInfoReq packet);
+        void S_ResourceInfoRes_Handle(Session session, S_ResourceInfoRes packet);
+        void C_ShopInfoReq_Handle(Session session, C_ShopInfoReq packet);
+        void S_ShopInfoRes_Handle(Session session, S_ShopInfoRes packet);
+        void C_BuyShopItemReq_Handle(Session session, C_BuyShopItemReq packet);
+        void S_BuyShopItemRes_Handle(Session session, S_BuyShopItemRes packet);
+
+    }
+    #endregion 
+
 }

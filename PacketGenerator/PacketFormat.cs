@@ -25,6 +25,8 @@ namespace Shared.Packets
 
 {2}
 
+{3} 
+
 }}";
 
         //{0} 패킷 이름
@@ -218,5 +220,17 @@ public static class PacketFactory
     }}
 }}
 #endregion";
+
+        //{0} 핸들러 함수 포멧
+        public static string packetHandlerFormat =
+@"#region 패킷 핸들러 인터페이스
+    public interface IPacketHandler
+    {{
+{0}
+    }}
+    #endregion";
+
+        //{0} 패킷 이름
+        public static string packetHandleFunctionFormat = "        void {0}_Handle(Session session, {0} packet);\n";
     }
 }
