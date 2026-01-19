@@ -1,11 +1,12 @@
 #pragma warning disable 8618    //생성자에서 null을 허용하지 않는 필드를 초기화하지 않음 경고 비활성화
-#pragma warning disable 8600    //xml내용 읽을 때 결과 string이 null일수 있음 경고 비활성화
 
 using Shared.Network;
 using Shared.Contents;
 using System.Text;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Xml;
 
 //해당 파일은 PacketGenerator.Program에 의해 자동 생성되었습니다.
 
@@ -77,6 +78,19 @@ public static class PacketFactory
         {
             this.resourceType = resourceType;
         }
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(C_ResourceInfoReq));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
 
         public void Read(in ArraySegment<byte> segment)
         {
@@ -157,6 +171,19 @@ public static class PacketFactory
             this.infos = infos;
         }
 
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(S_ResourceInfoRes));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
+
         public void Read(in ArraySegment<byte> segment)
         {
             int c = 0;
@@ -230,6 +257,19 @@ public static class PacketFactory
 
         
 
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(C_ShopInfoReq));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
+
         public void Read(in ArraySegment<byte> segment)
         {
             int c = 0;
@@ -289,6 +329,19 @@ public static class PacketFactory
         {
             this.items = items;
         }
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(S_ShopInfoRes));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
 
         public void Read(in ArraySegment<byte> segment)
         {
@@ -366,6 +419,19 @@ public static class PacketFactory
             this.itemIndex = itemIndex;
         }
 
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(C_BuyShopItemReq));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
+
         public void Read(in ArraySegment<byte> segment)
         {
             int c = 0;
@@ -433,6 +499,19 @@ public static class PacketFactory
             this.isSuccess = isSuccess;
 			this.rewards = rewards;
         }
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {
+            XmlSerializer xml = new(typeof(S_BuyShopItemRes));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }
+#endif
 
         public void Read(in ArraySegment<byte> segment)
         {

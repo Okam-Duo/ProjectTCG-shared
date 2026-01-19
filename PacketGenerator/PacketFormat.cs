@@ -13,6 +13,8 @@ using Shared.Contents;
 using System.Text;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Xml;
 
 //해당 파일은 PacketGenerator.Program에 의해 자동 생성되었습니다.
 
@@ -49,6 +51,19 @@ namespace Shared.Packets
         public {0}() {{ }}
 
         {5}
+
+#if UNITY_EDITOR
+        public override string ToString()
+        {{
+            XmlSerializer xml = new(typeof({0}));
+            StringBuilder stringBuilder = new();
+            XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
+
+            xml.Serialize(xmlWriter, this);
+            string text = stringBuilder.ToString();
+            return text;
+        }}
+#endif
 
         public void Read(in ArraySegment<byte> segment)
         {{
