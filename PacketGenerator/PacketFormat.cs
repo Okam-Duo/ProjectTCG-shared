@@ -6,7 +6,9 @@
         //{1} PacketFactory
         //{2} 패킷 선언들
         public static string fileFormat =
-@"using Shared.Network;
+@"#pragma warning disable 8618    //생성자에서 null을 허용하지 않는 필드를 초기화하지 않음 경고 비활성화
+
+using Shared.Network;
 using Shared.Contents;
 using System.Text;
 using System;
@@ -34,6 +36,7 @@ namespace Shared.Packets
         //{2} 멤버 변수 Read
         //{3} 멤버 변수 Write
         //{4} 패킷 ID
+        //{5} 생성자
         public static string packetFormat =
 @"
 #region {4}. {0}
@@ -43,6 +46,9 @@ namespace Shared.Packets
 
         public PacketID PacketID => PacketID.{0};
 
+        public {0}() {{ }}
+
+        {5}
 
         public void Read(in ArraySegment<byte> segment)
         {{
@@ -183,6 +189,15 @@ c += sizeof(byte);";
 @"//{1} {0}
 BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), (ushort){0});
 c += sizeof(ushort);";
+
+        //{0} 패킷 이름
+        //{1} 생성자 매개변수
+        //{2} 생성자 로직
+        public static string packetInitializerFormat =
+@"public {0}({1})
+        {{
+            {2}
+        }}";
 
         //{0} ID에서 Read<>로 대응하는 {}항
         public static string packetFactoryFormat =
