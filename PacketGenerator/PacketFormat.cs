@@ -48,8 +48,6 @@ namespace Shared.Packets
 
         public PacketID PacketID => PacketID.{0};
 
-        public {0}() {{ }}
-
         {5}
 
 #if UNITY_EDITOR

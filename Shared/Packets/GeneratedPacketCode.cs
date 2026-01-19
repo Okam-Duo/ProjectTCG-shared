@@ -72,8 +72,6 @@ public static class PacketFactory
 
         public PacketID PacketID => PacketID.C_ResourceInfoReq;
 
-        public C_ResourceInfoReq() { }
-
         public C_ResourceInfoReq(ResourceType[] resourceType)
         {
             this.resourceType = resourceType;
@@ -164,8 +162,6 @@ public static class PacketFactory
 
         public PacketID PacketID => PacketID.S_ResourceInfoRes;
 
-        public S_ResourceInfoRes() { }
-
         public S_ResourceInfoRes(ResourceInfo[] infos)
         {
             this.infos = infos;
@@ -253,8 +249,6 @@ public static class PacketFactory
 
         public PacketID PacketID => PacketID.C_ShopInfoReq;
 
-        public C_ShopInfoReq() { }
-
         
 
 #if UNITY_EDITOR
@@ -322,8 +316,6 @@ public static class PacketFactory
         public Item[] items;
 
         public PacketID PacketID => PacketID.S_ShopInfoRes;
-
-        public S_ShopInfoRes() { }
 
         public S_ShopInfoRes(Item[] items)
         {
@@ -412,8 +404,6 @@ public static class PacketFactory
 
         public PacketID PacketID => PacketID.C_BuyShopItemReq;
 
-        public C_BuyShopItemReq() { }
-
         public C_BuyShopItemReq(ushort itemIndex)
         {
             this.itemIndex = itemIndex;
@@ -491,8 +481,6 @@ public static class PacketFactory
 		public Item[] rewards;
 
         public PacketID PacketID => PacketID.S_BuyShopItemRes;
-
-        public S_BuyShopItemRes() { }
 
         public S_BuyShopItemRes(bool isSuccess, Item[] rewards)
         {
