@@ -50,7 +50,6 @@ namespace Shared.Packets
 
         {5}
 
-#if UNITY_EDITOR
         public override string ToString()
         {{
             XmlSerializer xml = new(typeof({0}));
@@ -61,7 +60,6 @@ namespace Shared.Packets
             string text = stringBuilder.ToString();
             return text;
         }}
-#endif
 
         public void Read(in ArraySegment<byte> segment)
         {{
