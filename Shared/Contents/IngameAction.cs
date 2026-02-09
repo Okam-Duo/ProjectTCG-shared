@@ -49,7 +49,7 @@ namespace Shared.Contents
             switch (actionType)
             {
                 default:
-                    Logger.Log($"{nameof(IngameAction)}.Read : 할당되지 않은 IngameActionType을 수신했습니다.");
+                    Logger.Log($"{nameof(IngameAction)}.Read : 할당되지 않은 IngameActionType을 수신했습니다, 수신한 정보 : {actionType}");
                     break;
             }
         }
