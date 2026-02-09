@@ -1,4 +1,5 @@
-﻿using Shared.Network;
+﻿using Shared.Contents;
+using Shared.Network;
 using Shared.Packets;
 using System;
 
