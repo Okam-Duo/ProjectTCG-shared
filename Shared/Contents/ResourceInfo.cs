@@ -50,7 +50,7 @@ namespace Shared.Contents
 
 
             //패킷 크기 삽입
-            ArraySegment<byte> result = SendBufferHelper.Close(c);
+            success &= BitConverter.TryWriteBytes(s, (ushort)c);
 
             if (success)
             {

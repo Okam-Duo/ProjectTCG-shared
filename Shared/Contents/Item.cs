@@ -46,8 +46,7 @@ namespace Shared.Contents
             success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), quantity);
             c += sizeof(ushort);
 
-
-            ArraySegment<byte> result = SendBufferHelper.Close(c);
+            success &= BitConverter.TryWriteBytes(s, (ushort)c);
 
             if (success)
             {
