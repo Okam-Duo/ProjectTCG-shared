@@ -12,6 +12,7 @@ using System.Xml;
 
 namespace Shared.Packets
 {
+    #region 패킷ID enum
     public enum PacketID
     {
         Null = 0,
@@ -46,6 +47,7 @@ namespace Shared.Packets
         C_DeckEditReq = 29,
         S_DeckEditRes = 30,
     }
+    #endregion
 
     #region PacketFactory : ID기반 패킷 생성기
     public static class PacketFactory

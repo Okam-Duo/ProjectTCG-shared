@@ -20,10 +20,12 @@ using System.Xml;
 
 namespace Shared.Packets
 {{
+    #region 패킷ID enum
     public enum PacketID
     {{
         Null = 0,{0}
     }}
+    #endregion
 
 {1}
 
