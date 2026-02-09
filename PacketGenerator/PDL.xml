@@ -1,35 +1,145 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PDL>
 
-	<packet name="C_ResourceInfoReq">
-		<list name="resourceType">
-			<enum name="ResourceType"/>
+	<packet name="C_ConnectServerReq"/>
+
+	<packet name="S_ConnectServerRes"/>
+
+	<packet name="C_CheckIdAvailableReq">
+		<string name="id"/>
+	</packet>
+
+	<packet name="S_CheckIdAvailableRes">
+		<bool name="isIdAvailable"/>
+	</packet>
+
+	<packet name="SignInReq">
+		<string name="id"/>
+		<int name="passward"/>
+		<string name="nickName"/>
+	</packet>
+
+	<packet name="SignInRes">
+		<bool name="isSuccess"/>
+	</packet>
+
+	<packet name="C_LoginReq">
+		<string name="id"/>
+		<int name="passward"/>
+	</packet>
+
+	<packet name="S_LoginRes">
+		<bool name="isSuccess"/>
+		<string name="nickName"/>
+		<int name="uid"/>
+	</packet>
+
+	<packet name="C_LogoutReq"/>
+
+	<packet name="C_CurrencyInfoReq"/>
+
+	<packet name="S_CurrencyInfoRes">
+		<int name="gold"/>
+	</packet>
+
+	<packet name="C_TryMatchingReq">
+		<int name="usedDeckId"/>
+	</packet>
+
+	<packet name="S_TryMatchingRes">
+		<bool name="isMatchingStarted"/>
+	</packet>
+
+	<packet name="S_MatchingSuccess"/>
+
+	<packet name="S_GameRoomStart">
+		<list name="handsCardId">
+			<int/>
+		</list>
+		<int name="firstPlayerOid"/>
+		<list name="playerDatas">
+			<Shared.Contents.IngamePlayerData/>
 		</list>
 	</packet>
 
-	<packet name="S_ResourceInfoRes">
-		<list name="infos">
-			<ResourceInfo/>
+	<packet name="C_SurrenderReq"/>
+
+	<packet name="S_GameResult">
+		<int name="winnerOid"/>
+		<bool name="isDraw"/>
+		<enum name ="reason">
+			<GameEndReason/>
+		</enum>
+		<int name="rewardGold"/>
+	</packet>
+
+	<packet name="C_UseCardReq">
+		<int name="usedCardOid"/>
+	</packet>
+
+	<packet name="S_UseCardRes">
+		<bool name="isSuccess"/>
+	</packet>
+
+	<packet name="C_TurnEndReq"/>
+
+	<packet name="S_TurnEnd">
+		<int name="endedPlayerOid"/>
+	</packet>
+
+	<packet name="S_IngameActionChain">
+		<list name="actionDatas">
+			<IngameAction/>
 		</list>
 	</packet>
 
-	<packet name="C_ShopInfoReq">
-	</packet>
+	<paacket name="C_ShopInfoReq"/>
+
+	<packet name="C_ShopInfoReq"/>
 
 	<packet name="S_ShopInfoRes">
-		<list name="items">
-			<Item/>
+		<list name="shopItemsInfo">
+			<Shared.Contents.ShopItemInfo/>
 		</list>
 	</packet>
 
 	<packet name="C_BuyShopItemReq">
-		<ushort name="itemIndex"/>
+		<int name="boughtShopItemId"/>
 	</packet>
 
 	<packet name="S_BuyShopItemRes">
 		<bool name="isSuccess"/>
 		<list name="rewards">
-			<Item/>
+			<Shared.Contents.Item/>
 		</list>
 	</packet>
+
+	<packet name="C_DeckInfoReq">
+		<int name="deckIndex"/>
+	</packet>
+
+	<packet name="S_DeckInfoRes">
+		<list name="heroesId">
+			<int/>
+		</list>
+		<list name="cardsId">
+			<int/>
+		</list>
+	</packet>
+
+	<packet name="C_DeckEditReq">
+		<int name="deckIndex"/>
+		<list name="heroesId">
+			<int/>
+		</list>
+		<list name="cardsId">
+			<int/>
+		</list>
+	</packet>
+
+	<packet name="S_DeckEditRes">
+		<int name="deckIndex"/>
+		<bool name="isSuccess"/>
+	</packet>
+
 </PDL>
