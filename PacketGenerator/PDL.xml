@@ -13,13 +13,13 @@
 		<bool name="isIdAvailable"/>
 	</packet>
 
-	<packet name="SignInReq">
+	<packet name="C_SignInReq">
 		<string name="id"/>
 		<int name="passward"/>
 		<string name="nickName"/>
 	</packet>
 
-	<packet name="SignInRes">
+	<packet name="S_SignInRes">
 		<bool name="isSuccess"/>
 	</packet>
 

@@ -20,8 +20,8 @@ namespace Shared.Packets
         S_ConnectServerRes = 2,
         C_CheckIdAvailableReq = 3,
         S_CheckIdAvailableRes = 4,
-        SignInReq = 5,
-        SignInRes = 6,
+        C_SignInReq = 5,
+        S_SignInRes = 6,
         C_LoginReq = 7,
         S_LoginRes = 8,
         C_LogoutReq = 9,
@@ -59,8 +59,8 @@ namespace Shared.Packets
         {PacketID.S_ConnectServerRes,Read<S_ConnectServerRes>},
         {PacketID.C_CheckIdAvailableReq,Read<C_CheckIdAvailableReq>},
         {PacketID.S_CheckIdAvailableRes,Read<S_CheckIdAvailableRes>},
-        {PacketID.SignInReq,Read<SignInReq>},
-        {PacketID.SignInRes,Read<SignInRes>},
+        {PacketID.C_SignInReq,Read<C_SignInReq>},
+        {PacketID.S_SignInRes,Read<S_SignInRes>},
         {PacketID.C_LoginReq,Read<C_LoginReq>},
         {PacketID.S_LoginRes,Read<S_LoginRes>},
         {PacketID.C_LogoutReq,Read<C_LogoutReq>},
@@ -400,16 +400,16 @@ namespace Shared.Packets
     }
     #endregion
 
-    #region 5. SignInReq
-    public struct SignInReq : IPacket
+    #region 5. C_SignInReq
+    public struct C_SignInReq : IPacket
     {
         public string id;
         public int passward;
         public string nickName;
 
-        public PacketID PacketID => PacketID.SignInReq;
+        public PacketID PacketID => PacketID.C_SignInReq;
 
-        public SignInReq(string id, int passward, string nickName)
+        public C_SignInReq(string id, int passward, string nickName)
         {
             this.id = id;
             this.passward = passward;
@@ -418,7 +418,7 @@ namespace Shared.Packets
 
         public override string ToString()
         {
-            XmlSerializer xml = new(typeof(SignInReq));
+            XmlSerializer xml = new(typeof(C_SignInReq));
             StringBuilder stringBuilder = new();
             XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
 
@@ -494,28 +494,28 @@ namespace Shared.Packets
             }
             else
             {
-                Logger.Log("SignInReq.Write() : Failed to write serialized packet data");
+                Logger.Log("C_SignInReq.Write() : Failed to write serialized packet data");
                 return null;
             }
         }
     }
     #endregion
 
-    #region 6. SignInRes
-    public struct SignInRes : IPacket
+    #region 6. S_SignInRes
+    public struct S_SignInRes : IPacket
     {
         public bool isSuccess;
 
-        public PacketID PacketID => PacketID.SignInRes;
+        public PacketID PacketID => PacketID.S_SignInRes;
 
-        public SignInRes(bool isSuccess)
+        public S_SignInRes(bool isSuccess)
         {
             this.isSuccess = isSuccess;
         }
 
         public override string ToString()
         {
-            XmlSerializer xml = new(typeof(SignInRes));
+            XmlSerializer xml = new(typeof(S_SignInRes));
             StringBuilder stringBuilder = new();
             XmlWriter xmlWriter = XmlWriter.Create(stringBuilder);
 
@@ -569,7 +569,7 @@ namespace Shared.Packets
             }
             else
             {
-                Logger.Log("SignInRes.Write() : Failed to write serialized packet data");
+                Logger.Log("S_SignInRes.Write() : Failed to write serialized packet data");
                 return null;
             }
         }
@@ -2583,11 +2583,11 @@ namespace Shared.Packets
                 case PacketID.S_CheckIdAvailableRes:
                     S_CheckIdAvailableRes_Handle(session, (S_CheckIdAvailableRes)packet);
                     break;
-                case PacketID.SignInReq:
-                    SignInReq_Handle(session, (SignInReq)packet);
+                case PacketID.C_SignInReq:
+                    C_SignInReq_Handle(session, (C_SignInReq)packet);
                     break;
-                case PacketID.SignInRes:
-                    SignInRes_Handle(session, (SignInRes)packet);
+                case PacketID.S_SignInRes:
+                    S_SignInRes_Handle(session, (S_SignInRes)packet);
                     break;
                 case PacketID.C_LoginReq:
                     C_LoginReq_Handle(session, (C_LoginReq)packet);
@@ -2669,8 +2669,8 @@ namespace Shared.Packets
         void S_ConnectServerRes_Handle(Session session, S_ConnectServerRes packet);
         void C_CheckIdAvailableReq_Handle(Session session, C_CheckIdAvailableReq packet);
         void S_CheckIdAvailableRes_Handle(Session session, S_CheckIdAvailableRes packet);
-        void SignInReq_Handle(Session session, SignInReq packet);
-        void SignInRes_Handle(Session session, SignInRes packet);
+        void C_SignInReq_Handle(Session session, C_SignInReq packet);
+        void S_SignInRes_Handle(Session session, S_SignInRes packet);
         void C_LoginReq_Handle(Session session, C_LoginReq packet);
         void S_LoginRes_Handle(Session session, S_LoginRes packet);
         void C_LogoutReq_Handle(Session session, C_LogoutReq packet);
