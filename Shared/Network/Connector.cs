@@ -14,7 +14,7 @@ namespace Shared.Network
         private Action<bool> _onConnected;
 
         //bool : 연결 성공 여부
-        public Connector(Action<bool> onConnected)
+        public Connector(Action<bool> onConnected = null)
         {
             _onConnected = onConnected;
         }
