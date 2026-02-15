@@ -10,7 +10,14 @@ namespace Shared.Network
 {
     public class Connector
     {
-        Func<Session> _sessionFactory;
+        private Func<Session> _sessionFactory;
+        private Action<bool> _onConnected;
+
+        //bool : 연결 성공 여부
+        public Connector(Action<bool> onConnected)
+        {
+            _onConnected = onConnected;
+        }
 
         public void Connect(IPEndPoint endPoint, Func<Session> sessionFactory)
         {
@@ -48,10 +55,13 @@ namespace Shared.Network
                 Session session = _sessionFactory.Invoke();
                 session.Start(args.ConnectSocket);
                 session.OnConnected(args.RemoteEndPoint);
+
+                _onConnected?.Invoke(true);
             }
             else
             {
                 Console.WriteLine($"OnConnectCompleted Fail: {args.SocketError}");
+                _onConnected?.Invoke(false);
             }
         }
     }
