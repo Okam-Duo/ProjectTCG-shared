@@ -60,7 +60,7 @@ namespace Shared.Network
             }
             else
             {
-                Console.WriteLine($"OnConnectCompleted Fail: {args.SocketError}");
+                Logger.Log($"OnConnectCompleted Fail: {args.SocketError}");
                 _onConnected?.Invoke(false);
             }
         }
