@@ -102,6 +102,7 @@ namespace Shared.Network
 
         void RegisterSend()
         {
+            if (_disconnected == 1) return;
 
             while (_sendQueue.Count > 0)
             {
@@ -162,6 +163,8 @@ namespace Shared.Network
 
         void RegisterRecv()
         {
+            if (_disconnected == 1) return;
+
             _recvBuffer.Clean();
             ArraySegment<byte> segment = _recvBuffer.WriteSegment;
             _recvArgs.SetBuffer(segment.Array, segment.Offset, segment.Count);
