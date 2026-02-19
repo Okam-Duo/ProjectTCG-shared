@@ -8,9 +8,9 @@ namespace Shared.Network
 {
     public class RecvBuffer
     {
-        ArraySegment<byte> _buffer;
-        int _readPosition;
-        int _writePosition;
+        private ArraySegment<byte> _buffer;
+        private int _readPosition;
+        private int _writePosition;
 
         public RecvBuffer(int bufferSize)
         {

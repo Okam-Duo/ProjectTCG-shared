@@ -33,7 +33,7 @@ namespace Shared.Network
             RegisterConnect(args);
         }
 
-        void RegisterConnect(SocketAsyncEventArgs args)
+        private void RegisterConnect(SocketAsyncEventArgs args)
         {
             Socket socket = args.UserToken as Socket;
             if (socket == null)
@@ -48,7 +48,7 @@ namespace Shared.Network
             }
         }
 
-        void OnConnectCompleted(object sender, SocketAsyncEventArgs args)
+        private void OnConnectCompleted(object sender, SocketAsyncEventArgs args)
         {
             if (args.SocketError == SocketError.Success)
             {

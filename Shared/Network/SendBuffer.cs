@@ -36,8 +36,8 @@ namespace Shared.Network
 
     public class SendBuffer
     {
-        byte[] _buffer;
-        int _usedSize = 0;
+        private byte[] _buffer;
+        private int _usedSize = 0;
 
         public int FreeSize { get { return _buffer.Length - _usedSize; } }
 

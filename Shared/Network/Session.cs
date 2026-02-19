@@ -100,7 +100,7 @@ namespace Shared.Network
 
         #region Send
 
-        void RegisterSend()
+        private void RegisterSend()
         {
             if (_disconnected == 1) return;
 
@@ -127,7 +127,7 @@ namespace Shared.Network
             }
         }
 
-        void OnSendCompleted(object sender, SocketAsyncEventArgs args)
+        private void OnSendCompleted(object sender, SocketAsyncEventArgs args)
         {
             lock (_lock)
             {
@@ -161,7 +161,7 @@ namespace Shared.Network
 
         #region Recv
 
-        void RegisterRecv()
+        private void RegisterRecv()
         {
             if (_disconnected == 1) return;
 
@@ -177,7 +177,7 @@ namespace Shared.Network
             }
         }
 
-        void OnRecvCompleted(object sender, SocketAsyncEventArgs _recvArgs)
+        private void OnRecvCompleted(object sender, SocketAsyncEventArgs _recvArgs)
         {
             if (_recvArgs.BytesTransferred > 0 && _recvArgs.SocketError == SocketError.Success)
             {
