@@ -127,7 +127,7 @@ namespace Shared.Network
             }
         }
 
-        private void OnSendCompleted(object sender, SocketAsyncEventArgs args)
+        private void OnSendCompleted(object? sender, SocketAsyncEventArgs args)
         {
             lock (_lock)
             {
@@ -177,7 +177,7 @@ namespace Shared.Network
             }
         }
 
-        private void OnRecvCompleted(object sender, SocketAsyncEventArgs _recvArgs)
+        private void OnRecvCompleted(object? sender, SocketAsyncEventArgs _recvArgs)
         {
             if (_recvArgs.BytesTransferred > 0 && _recvArgs.SocketError == SocketError.Success)
             {

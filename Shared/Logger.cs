@@ -9,7 +9,7 @@ namespace Shared
 {
     public class Logger
     {
-        public static event Action<string> OnAddLogData;
+        public static event Action<string>? OnAddLogData = null;
 
         public static void Log(string message)
         {

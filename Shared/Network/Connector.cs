@@ -11,10 +11,10 @@ namespace Shared.Network
     public class Connector
     {
         private Func<Session> _sessionFactory;
-        private Action<bool> _onConnected;
+        private Action<bool>? _onConnected;
 
         //bool : 연결 성공 여부
-        public Connector(Action<bool> onConnected = null)
+        public Connector(Action<bool>? onConnected = null)
         {
             _onConnected = onConnected;
         }
