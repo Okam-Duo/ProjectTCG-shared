@@ -15,16 +15,14 @@ namespace Shared.Contents
     {
         public string nickName;
         public int oid;
-        public int[] heroesId;
-        public int[] heroesOid;
+        public IngameHeroData[] heroes;
         public int[] handCardsOid;
 
-        public IngamePlayerData(string nickName, int oid, int[] heroesId, int[] heroesOid, int[] handCardsOid)
+        public IngamePlayerData(string nickName, int oid, IngameHeroData[] heroes, int[] handCardsOid)
         {
             this.nickName = nickName;
             this.oid = oid;
-            this.heroesId = heroesId;
-            this.heroesOid = heroesOid;
+            this.heroes = heroes;
             this.handCardsOid = handCardsOid;
         }
 
@@ -60,19 +58,8 @@ namespace Shared.Contents
             c += sizeof(ushort);
             for (int i = 0; i < len; i++)
             {
-                //int heroesId[i]
-                heroesId[i] = BitConverter.ToInt32(s.Slice(c, segment.Count - c));
-                c += sizeof(int);
-            }
-
-            //Array
-            len = BitConverter.ToUInt16(s.Slice(c, segment.Count - c));
-            c += sizeof(ushort);
-            for (int i = 0; i < len; i++)
-            {
-                //int heroesOid[i]
-                heroesOid[i] = BitConverter.ToInt32(s.Slice(c, segment.Count - c));
-                c += sizeof(int);
+                //struct heroes[i]
+                heroes[i].Read(segment, ref c);
             }
 
             //Array
@@ -93,9 +80,6 @@ namespace Shared.Contents
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset + c, segment.Count);
             bool success = true;
 
-            //전체 사이즈 적을 공간 비워놓기
-            c += sizeof(ushort);
-
 
             len = (ushort)Encoding.UTF8.GetBytes(nickName, 0, nickName.Length, segment.Array, segment.Offset + c + sizeof(ushort));
             success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);
@@ -106,26 +90,13 @@ namespace Shared.Contents
             success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), oid);
             c += sizeof(int);
 
-            //int[] heroesId
-            len = (ushort)heroesId.Length;//*
+            //IngameHeroData[] heroes
+            len = (ushort)heroes.Length;//*
             success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
             c += sizeof(ushort);//*
             for (int i = 0; i < len; i++)
             {
-                //int heroesId[i]
-                success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), heroesId[i]);
-                c += sizeof(int);
-            }
-
-            //int[] heroesOid
-            len = (ushort)heroesOid.Length;//*
-            success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), len);//*
-            c += sizeof(ushort);//*
-            for (int i = 0; i < len; i++)
-            {
-                //int heroesOid[i]
-                success &= BitConverter.TryWriteBytes(s.Slice(c, s.Length - c), heroesOid[i]);
-                c += sizeof(int);
+                heroes[i].Write(new ArraySegment<byte>(segment.Array, segment.Offset + c, segment.Count - c), ref c);
             }
 
             //int[] handCardsOid
@@ -139,20 +110,7 @@ namespace Shared.Contents
                 c += sizeof(int);
             }
 
-
-
-            //전체 크기 삽입
-            success &= BitConverter.TryWriteBytes(s, (ushort)c);
-
-            if (success)
-            {
-                return true;
-            }
-            else
-            {
-                Logger.Log("IngamePlayerData.Write() : Failed to write serialized data");
-                return false;
-            }
+            return success;
         }
     }
 }
