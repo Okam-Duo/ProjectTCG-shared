@@ -137,7 +137,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -203,7 +203,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -784,7 +784,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -850,7 +850,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -1141,7 +1141,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -1325,7 +1325,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -1646,7 +1646,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
@@ -1872,7 +1872,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {
-            int c = 0;
+
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 

@@ -72,20 +72,23 @@ namespace PacketGenerator
                 return;
             }
 
+            string defineC;
             Tuple<string, string, string, string, string> t;
             if (r.IsEmptyElement)
             {
                 t = new("", "", "", "", "");
+                defineC = "";
             }
             else
             {
                 t = ParseMembers(r);
+                defineC = "int c = 0;";
             }
 
             string initLogic = string.Format(PacketFormat.packetInitializerFormat, packetName, t.Item4, t.Item5);
             if (t.Item4.Length == 0) initLogic = "";
 
-            genPacket += string.Format(PacketFormat.packetFormat, packetName, t.Item1, t.Item2, t.Item3, packetId, initLogic);
+            genPacket += string.Format(PacketFormat.packetFormat, packetName, t.Item1, t.Item2, t.Item3, packetId, initLogic, defineC);
             packetEnums += $"\n\t\t{packetName} = {packetId++},";
             packetIdPair += $"\n\t\t{{PacketID.{packetName},Read<{packetName}>}},";
             packetHandle += string.Format(PacketFormat.packetHandleFunctionFormat, packetName);

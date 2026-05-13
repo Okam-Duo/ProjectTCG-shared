@@ -41,6 +41,7 @@ namespace Shared.Packets
         //{3} 멤버 변수 Write
         //{4} 패킷 ID
         //{5} 생성자
+        //{6} int c = 0; 읽기와 쓰기함수에서 c선언 데이터(안할거면 비우기)
         public static string packetFormat =
 @"
 #region {4}. {0}
@@ -65,7 +66,7 @@ namespace Shared.Packets
 
         public void Read(in ArraySegment<byte> segment)
         {{
-            int c = 0;
+            {6}
             int len = 0;
             Span<byte> s = new Span<byte>(segment.Array, segment.Offset, segment.Count);
 
